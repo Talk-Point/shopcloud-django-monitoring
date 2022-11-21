@@ -2,28 +2,38 @@
 
 Monitoring App
 
-## QUickstart
+## Quickstart
 
-1. Add "polls" to your INSTALLED_APPS setting like this::
+1. Add "monitoring" to your INSTALLED_APPS setting like this::
 
 ```py
 INSTALLED_APPS = [
     ...
-    'polls',
+    'monitoring',
 ]
 ```
+
+````py
+PLUGINS = {
+    'MONITORING_SOURCES': {
+        'INSTALLED': [
+            'SQL_QUERY_V1',
+            'SAGE_SQL_CONNECTOR_V1',
+            'NOT_SUCCESS_V1',
+        ]
+    }
+}
+````
 
 2. Include the polls URLconf in your project urls.py like this::
 
 ```
-path('polls/', include('polls.urls')),
+path('monitoring/', include('monitoring.urls')),
 ```
 
 3. Run `python manage.py migrate` to create the polls models.
 
 4. Start the development server and visit http://127.0.0.1:8000/admin/
-   to create a poll (you'll need the Admin app enabled).
+   to create a metric (you'll need the Admin app enabled).
 
-5. Visit http://127.0.0.1:8000/monitoring/ to participate in the poll.
-
-codecov tox tox-py
+5. Visit http://127.0.0.1:8000/monitoring/ to participate in the Monitoring Metrics.
