@@ -37,3 +37,12 @@ path('monitoring/', include('monitoring.urls')),
    to create a metric (you'll need the Admin app enabled).
 
 5. Visit http://127.0.0.1:8000/monitoring/ to participate in the Monitoring Metrics.
+
+## Release
+
+```sh
+$ rm -rf build dist
+$ pip3 install wheel twine
+$ python3 setup.py sdist bdist_wheel
+$ twine upload dist/* 
+```
