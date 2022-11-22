@@ -9,8 +9,8 @@ from shopcloud_streams import Event as StreamEvent
 
 class SourceType:
     SQL_QUERY_V1 = 'SQL_QUERY_V1'
-    SAGE_SQL_CONNECTOR_V1 = 'SAGE_SQL_CONNECTOR_V1'
     NOT_SUCCESS_V1 = 'NOT_SUCCESS_V1'
+    SQL_SAGE_GATEWAY_V1 = 'SQL_SAGE_GATEWAY_V1'
 
 
 class Source(GID, models.Model):
@@ -25,8 +25,8 @@ class Source(GID, models.Model):
         max_length=255,
         choices=(
             (SourceType.SQL_QUERY_V1, SourceType.SQL_QUERY_V1),
-            (SourceType.SAGE_SQL_CONNECTOR_V1, SourceType.SAGE_SQL_CONNECTOR_V1),
             (SourceType.NOT_SUCCESS_V1, SourceType.NOT_SUCCESS_V1),
+            (SourceType.SQL_SAGE_GATEWAY_V1, SourceType.SQL_SAGE_GATEWAY_V1),
         )
     )
     meta_api_endpoint = models.CharField(
@@ -40,6 +40,16 @@ class Source(GID, models.Model):
         blank=True,
     )
     meta_api_password = models.CharField(
+        max_length=255,
+        null=True,
+        blank=True,
+    )
+    meta_connector = models.CharField(
+        max_length=255,
+        null=True,
+        blank=True,
+    )
+    meta_db = models.CharField(
         max_length=255,
         null=True,
         blank=True,

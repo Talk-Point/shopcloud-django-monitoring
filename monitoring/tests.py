@@ -1,4 +1,3 @@
-import trace
 from inspect import getmembers, isfunction
 
 from django.test import TestCase
