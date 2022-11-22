@@ -9,8 +9,6 @@ from django.core.management import execute_from_command_line
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 sys.path.append(os.path.abspath(os.path.join(BASE_DIR, '..')))
 
-# Unfortunately, apps can not be installed via ``modify_settings``
-# decorator, because it would miss the database setup.
 CUSTOM_INSTALLED_APPS = (
     'monitoring',
 )
@@ -47,6 +45,7 @@ settings.configure(
     DATABASES={
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': 'monitoring-db',
         }
     },
     LANGUAGE_CODE='en-us',
@@ -88,7 +87,7 @@ settings.configure(
         'MONITORING_SOURCES': {
             'INSTALLED': [
                 'SQL_QUERY_V1',
-                'SAGE_SQL_CONNECTOR_V1',
+                'SQL_SAGE_GATEWAY_V1',
                 'NOT_SUCCESS_V1',
             ]
         }
@@ -96,25 +95,33 @@ settings.configure(
 )
 
 django.setup()
-args = [sys.argv[0], 'test']
-# Current module (``tests``) and its submodules.
-test_cases = '.'
 
-# Allow accessing test options from the command line.
-offset = 1
-try:
-    sys.argv[1]
-except IndexError:
-    pass
-else:
-    option = sys.argv[1].startswith('-')
-    if not option:
-        test_cases = sys.argv[1]
-        offset = 2
+if len(sys.argv) <= 1:
+    print('use test or makemigrations')
+    exit(1)
 
-args.append(test_cases)
-# ``verbosity`` can be overwritten from command line.
-args.append('--verbosity=2')
-args.extend(sys.argv[offset:])
+if sys.argv[1] == "test":
+    args = [sys.argv[0], 'test']
+    # Current module (``tests``) and its submodules.
+    test_cases = '.'
 
-execute_from_command_line(args)
+    # Allow accessing test options from the command line.
+    offset = 2
+    try:
+        sys.argv[2]
+    except IndexError:
+        pass
+    else:
+        option = sys.argv[2].startswith('-')
+        if not option:
+            test_cases = sys.argv[2]
+            offset = 3
+
+    args.append(test_cases)
+    # ``verbosity`` can be overwritten from command line.
+    args.append('--verbosity=2')
+    args.extend(sys.argv[offset:])
+    execute_from_command_line(args)
+elif sys.argv[1] == "makemigrations":
+    args = sys.argv[:1] + ["makemigrations", "monitoring"]
+    execute_from_command_line(args)
