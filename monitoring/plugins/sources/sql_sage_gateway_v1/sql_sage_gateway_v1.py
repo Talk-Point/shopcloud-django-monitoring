@@ -40,5 +40,7 @@ class Plugin:
                     return False, 0
                 sub_span.log_kv(response.json())
                 return False, 0
-            data = response.json()
-            return True, data.get('total', 0)
+            datas = response.json().get('results', [])
+            if len(datas) == 0:
+                raise Exception('No data returned')
+            return True, datas[0].get('total', 0)
