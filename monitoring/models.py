@@ -123,6 +123,9 @@ class Metric(GID, models.Model):
         return "{}".format(self.code)
 
     def fire_alarm(self, span):
+        if not self.is_active:
+            return None
+
         StreamEvent('de.talk-point.streams/notification_fired', {
             'notification': {
                 "type": "MS_MONITORING_METRIC_ALARM",

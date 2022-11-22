@@ -18,7 +18,7 @@ PLUGINS = {
     'MONITORING_SOURCES': {
         'INSTALLED': [
             'SQL_QUERY_V1',
-            'SAGE_SQL_CONNECTOR_V1',
+            'SQL_SAGE_GATEWAY_V1',
             'NOT_SUCCESS_V1',
         ]
     }
