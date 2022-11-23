@@ -42,6 +42,8 @@ path('monitoring/', include('monitoring.urls')),
 
 5. Visit http://127.0.0.1:8000/monitoring/ to participate in the Monitoring Metrics.
 
+6. Queue `monitoring-metrics-proceed` anlegen.
+
 ## Release
 
 ```sh
