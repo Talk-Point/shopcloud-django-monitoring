@@ -4,6 +4,10 @@ Monitoring App
 
 ## Quickstart
 
+```
+pip3 istall shopcloud-django-monitoring
+```
+
 1. Add "monitoring" to your INSTALLED_APPS setting like this::
 
 ```py
