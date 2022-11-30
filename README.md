@@ -4,6 +4,10 @@ Monitoring App
 
 ## Quickstart
 
+```
+pip3 istall shopcloud-django-monitoring
+```
+
 1. Add "monitoring" to your INSTALLED_APPS setting like this::
 
 ```py
@@ -37,6 +41,8 @@ path('monitoring/', include('monitoring.urls')),
    to create a metric (you'll need the Admin app enabled).
 
 5. Visit http://127.0.0.1:8000/monitoring/ to participate in the Monitoring Metrics.
+
+6. Queue `monitoring-metrics-proceed` anlegen.
 
 ## Release
 

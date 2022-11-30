@@ -43,4 +43,4 @@ class Plugin:
             datas = response.json().get('results', [])
             if len(datas) == 0:
                 raise Exception('No data returned')
-            return True, datas[0].get('total', 0)
+            return True, int(datas[0].get('total', 0))

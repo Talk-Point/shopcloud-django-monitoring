@@ -30,4 +30,4 @@ class Plugin:
                 print(results)
                 total = results[0].get('total', 0)
 
-        return True, total
+        return True, int(total)
