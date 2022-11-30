@@ -178,11 +178,14 @@ class Metric(GID, models.Model):
         if not is_success:
             self.is_ok = False
         else:
-            if self.value_min is not None and self.value <= self.value_min:
+            if value is None:
                 self.is_ok = False
+            else:
+                if self.value_min is not None and self.value <= self.value_min:
+                    self.is_ok = False
 
-            if self.value_max is not None and self.value >= self.value_max:
-                self.is_ok = False
+                if self.value_max is not None and self.value >= self.value_max:
+                    self.is_ok = False
         self.save()
 
         if before_is_ok != self.is_ok:
