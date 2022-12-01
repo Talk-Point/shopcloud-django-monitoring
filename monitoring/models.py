@@ -74,6 +74,11 @@ class Source(GID, models.Model):
             return False, None
 
 
+class MetricType:
+    TECHNICAL = 'TECHNICAL'
+    PROCESS = 'PROCESS'
+
+
 class Metric(GID, models.Model):
     name = models.CharField(
         max_length=255,
@@ -113,6 +118,19 @@ class Metric(GID, models.Model):
         null=True,
         blank=True,
     )
+    contact_person = models.CharField(
+        max_length=255,
+        null=True,
+        blank=True,
+    )
+    type = models.CharField(
+        max_length=255,
+        choices=(
+            (MetricType.TECHNICAL, MetricType.TECHNICAL),
+            (MetricType.PROCESS, MetricType.PROCESS),
+        ),
+        default=MetricType.TECHNICAL,
+    )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -143,6 +161,14 @@ class Metric(GID, models.Model):
                     {
                         "topLabel": "Description",
                         "content": self.description if self.description is not None else "",
+                    },
+                    {
+                        "topLabel": "type",
+                        "content": self.type,
+                    },
+                    {
+                        "topLabel": "Kontaktperson",
+                        "content": self.contact_person,
                     },
                     {
                         "topLabel": "Aktion",
