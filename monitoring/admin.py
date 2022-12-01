@@ -32,6 +32,7 @@ metric_proceed.short_description = 'PROCEED'
 class MetricAdmin(admin.ModelAdmin):
     list_display = (
         'id',
+        'type',
         'code',
         'source',
         'is_active',
