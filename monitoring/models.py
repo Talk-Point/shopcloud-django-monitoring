@@ -154,7 +154,7 @@ class Metric(GID, models.Model):
 
         base_url = settings.BASE_URL
 
-        if base_url.ends_with("/"):
+        if base_url.endswith("/"):
             base_url = base_url[:-1]
 
         action_url = base_url + reverse("admin:monitoring_metric_changelist")
