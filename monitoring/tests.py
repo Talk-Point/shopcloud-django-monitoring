@@ -98,7 +98,6 @@ class TestMetricAlarm(SetupClass):
             data={},
             format='json'
         )
-        print("--->", response.json())
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         metric = models.Metric.objects.get(pk=metric.id)
         self.assertEqual(metric.is_ok, False)
