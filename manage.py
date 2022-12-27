@@ -35,6 +35,7 @@ ALWAYS_MIDDLEWARE_CLASSES = (
 settings.configure(
     SECRET_KEY="django_tests_secret_key",
     BASE_URL="http://localhost:8000",
+    APP_TITLE="TEST-APP",
     DEBUG=False,
     TEST_MODE=True,
     TEMPLATE_DEBUG=False,
