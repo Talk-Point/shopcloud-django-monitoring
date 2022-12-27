@@ -2,6 +2,7 @@ from typing import Tuple, Optional
 
 from django.conf import settings
 from django.db import models
+from django.urls import reverse
 from django.utils import timezone
 from shopcloud_django_toolbox import GID, Event
 from shopcloud_streams import Event as StreamEvent
@@ -144,10 +145,24 @@ class Metric(GID, models.Model):
         if not self.is_active:
             return None
 
+        app_title = settings.APP_TITLE
+
+        if app_title is None:
+            app_title = "APP"
+
+        app_title = f"{app_title}-Monitoring"
+
+        base_url = settings.BASE_URL
+
+        if base_url.ends_with("/"):
+            base_url = base_url[:-1]
+
+        action_url = base_url + reverse("admin:monitoring_metric_changelist")
+
         StreamEvent('de.talk-point.streams/notification_fired', {
             'notification': {
                 "type": "MS_MONITORING_METRIC_ALARM",
-                "title": f"Marketplace-Supplier-Monitoring: Alarm for metric {self.code}",
+                "title": f"{app_title}: Alarm for metric {self.code}",
                 "reference": f"ms-monitoring-alarm-created-{self.id}-{timezone.now().strftime('%Y-%m-%d')}",
                 "sections": [
                     {
@@ -173,7 +188,7 @@ class Metric(GID, models.Model):
                     {
                         "topLabel": "Aktion",
                         "content": "Bitte überprüfen ob der Alarm problematisch ist",
-                        "link": f"{settings.BASE_URL}monitoring/metric/?q={self.id}",
+                        "link": f"{action_url}?q={self.id}",
                         "link_title": "Zur Metrik",
                     },
                 ]
